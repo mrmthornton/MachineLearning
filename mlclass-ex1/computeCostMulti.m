@@ -14,6 +14,9 @@ J = 0;
 %               You should set J to the cost.
 
 
+hx = X * theta;        % compute the vectorized Hx() function
+
+J = 1/(2 * m) * (hx - y)' * (hx - y); % compute the total cost
 
 
 

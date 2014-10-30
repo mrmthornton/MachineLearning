@@ -10,7 +10,7 @@ X_norm = X;
 mu = zeros(1, size(X, 2));
 sigma = zeros(1, size(X, 2));
 
-% ====================== YOUR CODE HERE ======================
+% ====================== YOUR CODE HERE ======================-----------------
 % Instructions: First, for each feature dimension, compute the mean
 %               of the feature and subtract it from the dataset,
 %               storing the mean value in mu. Next, compute the 
@@ -26,14 +26,14 @@ sigma = zeros(1, size(X, 2));
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
+mu = mean(X);
+sigma = std(X);
+cols = size(X, 2);
 
+for i = 1 : cols                                   % for 1 to  'cols'
+    X_norm(:,i) = (X(:,i) - mu(1,i)) / sigma(1,i); % normalize column 'i'
+end
 
-
-
-
-
-
-
-% ============================================================
+% ============================================================-----------------
 
 end
