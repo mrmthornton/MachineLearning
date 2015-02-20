@@ -81,45 +81,46 @@ X = [ones(m, 1) X];
 
 fprintf('Running gradient descent ...\n');
 
+% Choose some alpha value
+alpha = 0.01;
 num_iters = 400;
 
 % Init Theta and Run Gradient Descent 
-% Choose some alpha value
-alpha = 0.01;
 theta = zeros(3, 1);
-[theta1, J_history1] = gradientDescentMulti(X, y, theta, alpha, num_iters);
-
+[theta, J1] = gradientDescentMulti(X, y, theta, alpha, num_iters);
 alpha = 0.03;
 theta = zeros(3, 1);
-[theta3, J_history3] = gradientDescentMulti(X, y, theta, alpha, num_iters);
-
-alpha = 0.05;
+[theta, J3] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+alpha = 0.10;
 theta = zeros(3, 1);
-[theta5, J_history5] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+[theta, J10] = gradientDescentMulti(X, y, theta, alpha, num_iters);
 
 % Plot the convergence graph
 figure;
+plot(1:numel(J1), J1, '-b', 'LineWidth', 2);
 hold on;
-plot(1:numel(J_history1), J_history1, '-b', 'LineWidth', 2);
+plot(1:numel(J1), J3, '-r', 'LineWidth', 2);
+plot(1:numel(J1), J10, '-k', 'LineWidth', 2);
+
 xlabel('Number of iterations');
 ylabel('Cost J');
-plot(1:numel(J_history3), J_history3, '-r', 'LineWidth', 2);
-plot(1:numel(J_history5), J_history5, '-m', 'LineWidth', 2);
 
 % Display gradient descent's result
 fprintf('Theta computed from gradient descent: \n');
-fprintf(' %f \n', theta1);
-fprintf('\n');
-fprintf(' %f \n', theta3);
-fprintf('\n');
-fprintf(' %f \n', theta5);
+fprintf(' %f \n', theta);
 fprintf('\n');
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
-price = [1, (1650-mu(1,1))/sigma(1,1) , (3-mu(1,2))/sigma(1,2)] * theta5;
+
+% The price is calculated by using the found theta values, theta(a,b)
+% the normalizeing parameters, mu(c,d), sigma(c,d)
+%  and the new feature values, 1650 sq-ft, 3 br house.
+price = 1 * theta(1,1) + \
+                   (1650 - mu(1,1)) / sigma(1,1)  * theta(2,1) + \
+                       (3 -mu(1,2)) / sigma(1,2) * theta(3,1);
 
 
 % ============================================================
@@ -164,7 +165,11 @@ fprintf('\n');
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
-price = [1, 1650, 3] * theta;
+
+% The price is calculated by using the calculated exact theta values, theta(a,b)
+% the normalizeing parameters, mu(c,d), sigma(c,d)
+%  and the new feature values, 1650 sq-ft, 3 br house.
+price = 1 * theta(1,1)  + 1650 * theta(2,1) + 3 * theta(3,1);
 
 
 % ============================================================

@@ -21,9 +21,10 @@ grad = zeros(size(theta));
 %
 
 
+Hypothesis = sigmoid(X * theta);
+J = -1/m * ( y' * log(Hypothesis) + (1-y') * log(1-Hypothesis)  );
 
-
-
+grad = 1/m * X' * (Hypothesis - y);
 
 
 

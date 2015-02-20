@@ -4,7 +4,7 @@ function plotData(X, y)
 %   and o for the negative examples. X is assumed to be a Mx2 matrix.
 
 % Create New Figure
-%%%%%%%%figure; hold on;
+figure; hold on;
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Plot the positive and negative examples on a
@@ -12,17 +12,13 @@ function plotData(X, y)
 %               examples and 'ko' for the negative examples.
 %
 
-% find the indices of Positive and Negative results
-posIndex = find(y==1); negIndex = find(y==0);
+Yes = find(y==1);
+No = find(y==0);
+plot( X(Yes,1), X(Yes,2), 'k+' )
+plot( X(No,1), X(No,2), 'ro' )
 
-%plot negative as yellow circle, negative as red X
-figure();hold on;
-plot(X(posIndex,1),X(posIndex,2),'k+','LineWidth',1);
-plot(X(negIndex,1),X(negIndex,2),'ro','MarkerFaceColor','r','MarkerSize',5);
-xlabel('variable1')
-ylabel('variable2')
-legend('Positive','Negative')
-title('myPlot')
+
+
 
 
 % =========================================================================

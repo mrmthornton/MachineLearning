@@ -11,12 +11,6 @@ num_labels = size(Theta2, 1);
 p = zeros(size(X, 1), 1);
 
 % ====================== YOUR CODE HERE ======================
-a1 = [ones(m,1) X];
-a2 = sigmoid(a1 * Theta1');
-a2 = [ones(m,1) a2];
-a3 = sigmoid(a2 * Theta2');
-[m,p] = max(a3, [], 2);
-
 % Instructions: Complete the following code to make predictions using
 %               your learned neural network. You should set p to a 
 %               vector containing labels between 1 to num_labels.
@@ -27,6 +21,15 @@ a3 = sigmoid(a2 * Theta2');
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+
+
+
+
+
+
+
+
 % =========================================================================
+
 
 end

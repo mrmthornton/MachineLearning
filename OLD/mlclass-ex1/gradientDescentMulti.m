@@ -17,10 +17,9 @@ for iter = 1:num_iters
     %       of the cost function (computeCostMulti) and gradient here.
     %
 
+    hx = X * theta;     % compute the vectorized Hx() function
 
-    h0MinusY = X * theta - y;
-    theta = theta - alpha/m * X' * h0MinusY;
-
+    theta = theta - alpha/m * X' * (hx -y);  % compute the Theta-step
 
     % ============================================================
 

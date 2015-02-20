@@ -18,13 +18,6 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 %
-
-hx = sigmoid(X * theta);
-I0 = eye(length(theta)); I0(1,1) = 0;
-J = -1/m *( y' * log(hx) + (1-y') * log(1-hx) ) + lambda/(2 * m) * theta' * I0 * theta;
-
-grad = 1/m * (X' * (hx -y)) + lambda/m * I0 * theta;
-
 % Hint: The computation of the cost function and gradients can be
 %       efficiently vectorized. For example, consider the computation
 %
@@ -42,6 +35,8 @@ grad = 1/m * (X' * (hx -y)) + lambda/m * I0 * theta;
 %           temp(1) = 0;   % because we don't add anything for j = 0  
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
+
+
 
 
 

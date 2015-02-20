@@ -17,18 +17,17 @@ for iter = 1:num_iters
     %       of the cost function (computeCost) and gradient here.
     %
 
-    %alpha = 0.0485;
 
-    h0MinusY = X * theta - y;
-    %gradient =  X' * h0MinusY / (2*m);
-    theta = theta - alpha/m * X' * h0MinusY;
-    %theta = pinv(X' * X) * X' * y;
- 
+    hx = X * theta;
+
+    theta = theta - alpha/m * X' * (hx -y);
+
+
 
     % ============================================================
 
     % Save the cost J in every iteration    
-    J_history(iter,1) = computeCost(X, y, theta);
+    J_history(iter) = computeCost(X, y, theta);
 
 end
 

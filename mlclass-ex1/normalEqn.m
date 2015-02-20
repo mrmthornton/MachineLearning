@@ -10,10 +10,11 @@ theta = zeros(size(X, 2), 1);
 %               to linear regression and put the result in theta.
 %
 
-Xt = X'; % generate the transpose of X
+% ---------------------- Sample Solution ----------------------
 
-theta =  pinv(Xt * X) * Xt * y;  % calulate theta using normal equation
+theta = pinv(X' * X) * X' * y;
 
+% -------------------------------------------------------------
 
 
 % ============================================================
