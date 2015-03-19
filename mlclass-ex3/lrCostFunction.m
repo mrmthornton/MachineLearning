@@ -36,14 +36,17 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+n = length(theta); % number of feature plus 1 for theta_0.
 
+I0 = eye(n); I0(1,1) = 0; % this is to avoid regularizing theta_0
 
+Hypothesis = sigmoid(X * theta);
 
+J = -1/m * ( y' * log(Hypothesis) \           % y = 1
+	+ (1-y') * log(1-Hypothesis)) \        % y = 0
+	+ lambda/(2*m) * theta' * I0 * theta;  % penalty for large theta
 
-
-
-
-
+grad = 1/m * X' * (Hypothesis - y) + lambda/m * I0 * theta;
 
 % =============================================================
 
