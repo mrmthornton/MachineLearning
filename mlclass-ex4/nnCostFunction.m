@@ -61,6 +61,11 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% TRANSFORM Y(m, 1) values, to %%%%%%%
+%%%%% logical array,(all_y(m,k)    %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % all_y is the 'one v all' transformation of y
     %  y is a vector, all_y is a matrix
     % (vector) (matrix)
@@ -78,10 +83,12 @@ Theta2_grad = zeros(size(Theta2));
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%% FORWARD PROPAGATION %%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-a1 = [ones(m, 1) X];        % add the bias unit to the input
-a2 = sigmoid(a1 * Theta1'); % calculate the activation function for layer 2
-a2 = [ones(m,1) a2];        % add the bias unit to layer 2
-a3 = sigmoid(a2 * Theta2'); % calculate the activation function for layer 3
+a1 = [ones(m, 1) X]; % add the bias unit to the input
+z2 = a1 * Theta1';   % compute the weighed input to layer 2
+a2 = sigmoid(z2);    % compute the activation function for layer 2
+a2 = [ones(m,1) a2]; % add the bias unit to layer 2
+z3 = a2 * Theta2';   % compute the weighed input to layer 3 
+a3 = sigmoid(z3);    % calculate the activation function for layer 3
 
 I20 = eye(size(Theta2, 2)); I20(1,1) = 0; % this is to avoid regularizing theta2_0
 I10 = eye(size(Theta1, 2)); I10(1,1) = 0; % this is to avoid regularizing theta1_0
@@ -91,24 +98,23 @@ JmK = -1/m * ( all_y  .* log(a3) \          % y = 1
 	+ (1-all_y ) .* log(1-a3));         % y = 0
 
 % Calculate the regularization terms dependent on each layer's Thetas
-% Remove the bias multipier (first column), from theta values before summing
+% Remove the bias multipier (first column), from theta values before summing, 
+% and sum over all training examples, and classes
 reg1 = sum(sum(lambda/(2*m) * (Theta1 * I10) .* Theta1));  % penalty for large theta1's
 reg2 = sum(sum(lambda/(2*m) * (Theta2 * I20) .* Theta2));  % penalty for large theta2's
-% calculate the regularized cost
 J = sum(sum(JmK)) + reg1 + reg2;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% BACK PROPAGATION %%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 delta3 = a3 - all_y;
+
+delta2 = delta3 * Theta2;
+delta2 = delta2(:,2:end); % remove the modifier for the bias term
+delta2 = delta2 .* sigmoidGradient(a1 * Theta1');
+
 Theta2_grad = 1/m * (delta3' * a2 + lambda * Theta2 * I20);
-
-delta2 = (delta3 .* sigmoidGradient(a2 * Theta2')) * Theta2;
-delta2 = delta2(:,2:end);
 Theta1_grad = 1/m * (delta2' * a1 + lambda * Theta1 * I10);
-
-%%%delta1 = (delta2 .* sigmoidGradient(a1 * Theta1')) * Theta1;
-%%%delta1 = delta1(:,2:end);
 
 % =========================================================================
 
