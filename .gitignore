@@ -1,5 +1,6 @@
+*.lnk
+*.mat
 *.zip
+lib
 old
 octave-core
-*.mat
-lib
